@@ -1,0 +1,38 @@
+name: "CAML Lint"
+description: "Validate and explain CAML adventure files using caml-lint"
+branding:
+  icon: "check-circle"
+  color: "green"
+inputs:
+  files:
+    description: "Glob of CAML files to lint (e.g. 'examples/*.caml.json' or 'packs/**/*.json')"
+    required: true
+    default: "examples/*.caml.json"
+  json:
+    description: "Emit JSON output (true/false)"
+    required: false
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - name: Install caml-lint
+      shell: bash
+      run: npm i -g caml-lint
+    - name: Lint CAML files
+      shell: bash
+      run: |
+        set -e
+        shopt -s nullglob
+        files=( ${{ inputs.files }} )
+        if [ ${#files[@]} -eq 0 ]; then
+          echo "No files matched: ${{ inputs.files }}"
+          exit 1
+        fi
+        for f in "${files[@]}"; do
+          echo "Linting $f"
+          if [ "${{ inputs.json }}" = "true" ]; then
+            caml-lint "$f" --json
+          else
+            caml-lint "$f"
+          fi
+        done
