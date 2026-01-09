@@ -1,3 +1,34 @@
+
+---
+
+# README for **`caml-lint-action`** (GitHub Action)
+
+> ⚠️ This is **not an npm package**  
+> This repository publishes a **GitHub Action**
+
+```md
+# CAML Lint GitHub Action
+
+Run `caml-lint` automatically in GitHub Actions.
+
+This action validates CAML files in CI so invalid or inconsistent narrative content never ships.
+
+---
+
+## What this is
+
+- A GitHub Action
+- Built on top of the `caml-lint` npm package
+- Designed for zero-configuration use
+
+---
+
+## Usage
+
+```yaml
+- uses: dkoepsell/caml-lint-action@v0.1.0
+  with:
+    files: "adventures/**/*.caml.json"
 # caml-lint-action
 
 A tiny GitHub Action that runs `caml-lint` in CI.
